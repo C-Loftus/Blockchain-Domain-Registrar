@@ -1,7 +1,7 @@
 {
   "name": "ens",
   "version": "1.0.0",
-  "description": "",
+  "description": "Full stack web3 application for domain services on the Polygon network",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
