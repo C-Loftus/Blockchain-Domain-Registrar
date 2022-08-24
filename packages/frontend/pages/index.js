@@ -1,12 +1,44 @@
 import Head from "next/head";
 import styles from "../styles/Home.module.css";
 import Web3Header from "../components/Web3Header";
-import { useMoralis } from "react-moralis";
+import { useMoralis, useWeb3Contract } from "react-moralis";
+import { abi, addresses } from "../constants";
 
-const supportedChains = ["80001"];
+import ContractEntrance from "../components/entrance";
+import PurchaseForm from "../components/domainPurchase";
+import Register from "../components/register";
+
+const supportedChains = ["80001, 31337"];
+
+
+
+
 
 export default function Home() {
   const { isWeb3Enabled, chainId } = useMoralis();
+
+  const decimalChainId = parseInt(chainId);
+  console.log(decimalChainId);
+  let address = "";
+  try{
+    let address = addresses[decimalChainId][0];
+
+  }
+  catch(err){
+    let address = addresses[decimalChainId];
+  }
+
+  
+  const { data, error, runContractFunction, isFetching, isLoading } =
+  useWeb3Contract({
+    abi: abi,
+    contractAddress: address,
+    functionName: "price",
+    params: {
+      name: "testdomain",
+    },
+  });
+
 
   return (
     <div className={styles.container}>
@@ -16,7 +48,6 @@ export default function Home() {
         <div>
           {supportedChains.includes(parseInt(chainId).toString()) ? (
             <div className="flex flex-row">
-              {/* <LotteryEntrance className="p-8" /> */}
             </div>
           ) : (
             <div>{`You are on chain: ${parseInt(chainId)}. Please switch to the Polygon Mumbai Testnet at chainId: 80001`}</div>
@@ -25,6 +56,7 @@ export default function Home() {
       ) : (
         <div>Please connect to a Wallet</div>
       )}
+
     </div>
   );
 }

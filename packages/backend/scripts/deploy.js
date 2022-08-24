@@ -12,8 +12,11 @@ const ABI_PATH = path.resolve(__dirname, ABI);
 const main = async () => {
 
     const contract = await ethers.getContractFactory("Domains");
-    // ABI
+    const network = await ethers.provider.getNetwork();
+    console.log("Network name=", network.name);
+    console.log("Network chain id=", network.chainId);
 
+    // ABI
     fs.writeFileSync(ABI_PATH, contract.interface.format(ethers.utils.FormatTypes.json) )
 
 
@@ -27,8 +30,11 @@ const main = async () => {
 
 
   addresses = {}
+  addresses[network.chainId] = [deployedContract.address];
+
   // polygon testnet chainid
-  addresses[80001] = [deployedContract.address];
+
+  // 80001
 
    fs.writeFileSync(ADDRESSES_PATH, JSON.stringify(addresses));
 
