@@ -6,12 +6,12 @@ export default function Register(domain) {
     const { data, error, runContractFunction, isFetching, isLoading } =
       useWeb3Contract({
         abi: abi,
-        contractAddress: addresses,
-        functionName: "register",
+        contractAddress: "0x5FbDB2315678afecb367f032d93F642f64180aa3",
+        functionName: "price",
         params: {
           name: domain,
         },
-        msgValue: 100,
+        msgValue: 0,
       });
   
     return (

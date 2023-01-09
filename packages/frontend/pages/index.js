@@ -12,34 +12,9 @@ const supportedChains = ["80001, 31337"];
 
 
 
-
-
 export default function Home() {
   const { isWeb3Enabled, chainId } = useMoralis();
-
-  const decimalChainId = parseInt(chainId);
-  console.log(decimalChainId);
-  let address = "";
-  try{
-    let address = addresses[decimalChainId][0];
-
-  }
-  catch(err){
-    let address = addresses[decimalChainId];
-  }
-
   
-  const { data, error, runContractFunction, isFetching, isLoading } =
-  useWeb3Contract({
-    abi: abi,
-    contractAddress: address,
-    functionName: "price",
-    params: {
-      name: "testdomain",
-    },
-  });
-
-
   return (
     <div className={styles.container}>
 
@@ -56,7 +31,7 @@ export default function Home() {
       ) : (
         <div>Please connect to a Wallet</div>
       )}
-
+<Register />
     </div>
   );
 }
